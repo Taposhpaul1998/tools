@@ -10,20 +10,21 @@ const Users = () => {
             authorization: `Bearer ${localStorage.getItem('accessToken')}`
         }
     }).then(res => res.json()));
+
     if (isLoading) {
         return <Loading></Loading>
     }
     return (
         <div>
-            <h2 className="text-2xl">All Users: {users.length}</h2>
+            <h2 className="text-2xl font-bold text-center text-white my-4">All Users: {users?.length}</h2>
             <div class="overflow-x-auto">
                 <table class="table w-full">
                     <thead>
                         <tr>
-                            <th></th>
-                            <th>Name</th>
+
+                            <th>Email</th>
                             <th>Job</th>
-                            <th>Favorite Color</th>
+                            <th>Remove User</th>
                         </tr>
                     </thead>
                     <tbody>

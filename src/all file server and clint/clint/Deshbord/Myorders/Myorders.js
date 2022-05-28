@@ -9,16 +9,12 @@ const Myorders = () => {
 
     useEffect(() => {
         if (user) {
-            fetch(`http://localhost:5000/orders?email=${user.email}`, {
-                method: 'GET',
-                headers: {
-                    'authorization': `Bearer ${localStorage.getItem('accessToken')}`
-                }
-            })
+            fetch(`http://localhost:5000/orders?email=${user.email}`,)
                 .then(res => res.json())
                 .then(data => setOrders(data))
         }
     }, [user])
+    const myOrders = orders.filter(order => order.email === user.email);
     return (
         <div>
             <h2 className="text-2xl text-center my-4">My Orders :{orders.length}</h2>
@@ -35,7 +31,7 @@ const Myorders = () => {
                     </thead>
                     <tbody>
                         {
-                            orders.map(order => <Myorder
+                            myOrders.map(order => <Myorder
                                 key={order._id}
                                 order={order}
                             ></Myorder>)

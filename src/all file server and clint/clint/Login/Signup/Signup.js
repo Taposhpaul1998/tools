@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import auth from '../../../firebaseinit';
 import useToken from '../../Hooks/useToken';
 import Footer from '../../Shear/Footer/Footer';
+import Loading from '../../Shear/Loading/Loading';
 import Socile from '../Socile/Socile';
 
 const Signup = () => {
@@ -11,11 +12,15 @@ const Signup = () => {
     const [
         createUserWithEmailAndPassword,
         user,
+        loading
     ] = useCreateUserWithEmailAndPassword(auth)
     const [updateProfile] = useUpdateProfile(auth);
     const [token] = useToken(user);
     const navigate = useNavigate();
 
+    if (loading) {
+        return <Loading></Loading>
+    }
     if (token) {
         navigate('/deshbord');;
     }

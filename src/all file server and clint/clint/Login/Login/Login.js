@@ -27,7 +27,7 @@ const Login = () => {
     let errorElement;
 
 
-    if (loading) {
+    if (loading || sending) {
         return <Loading></Loading>
     }
     if (error) {

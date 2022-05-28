@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useQuery } from 'react-query';
+import Loading from '../../Shear/Loading/Loading';
 import Allorder from './Allorder';
 
 const Allorders = () => {
-    const [orders, setOrders] = useState([]);
 
-    useEffect(() => {
-        fetch('http://localhost:5000/orders')
-            .then(res => res.json())
-            .then(data => setOrders(data))
-    }, [])
+    const { data: orders, isLoading, refetch } = useQuery('users', () => fetch('http://localhost:5000/orders').then(res => res.json()));
+    if (isLoading) {
+        return <Loading></Loading>
+    }
+
     return (
         <div>
             <h2 className="text-2xl text-center my-4">All Orders :{orders.length}</h2>
@@ -29,6 +30,7 @@ const Allorders = () => {
                             orders.map(order => <Allorder
                                 key={order._id}
                                 order={order}
+                                refetch={refetch}
                             ></Allorder>)
                         }
                     </tbody>
